@@ -10,12 +10,14 @@ import com.example.rinhabackend.repositories.ExtratoRepository;
 import com.example.rinhabackend.repositories.TransacoesRepository;
 import org.hibernate.engine.jdbc.env.spi.ExtractedDatabaseMetaData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class TransacoesService {
 
     @Autowired
@@ -23,9 +25,6 @@ public class TransacoesService {
 
     @Autowired
     private ClientesRepository clientesRepository;
-
-    @Autowired
-    private UltimasTransacoes ultimasTransacoesRepository;
 
 
     public SaldoLimiteDTO createTransacao(Transacoes transacao, Long id) throws SaldoMenorQueLimiteException, TransacaoMenorQueZeroException, DescricaoMaiorQueDezException {

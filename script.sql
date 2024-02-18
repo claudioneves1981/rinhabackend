@@ -1,20 +1,18 @@
-USE rinha;
-
-CREATE TABLE clientes (
-	id BIGSERIAL PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS clientes (
+	cliente_id BIGSERIAL PRIMARY KEY,
 	nome VARCHAR(50),
 	limite INT DEFAULT 0,
 	saldo INT DEFAULT 0
 );
 
-CREATE TABLE transacoes (
-	id INT BIGSERIAL PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS transacoes (
+	transacoes_id BIGSERIAL PRIMARY KEY,
 	cliente_id INT,
 	valor INT,
-	tipo ENUM('d', 'c'),
+	tipo VARCHAR(1),
 	descricao VARCHAR(10),
 	realizada_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	FOREIGN KEY (cliente_id) REFERENCES clientes(id)
+	FOREIGN KEY (cliente_id) REFERENCES clientes(cliente_id)
 );
 
 INSERT INTO clientes (nome, limite) VALUES

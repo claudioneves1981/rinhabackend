@@ -5,19 +5,18 @@ import com.example.rinhabackend.repositories.ClientesRepository;
 import com.example.rinhabackend.repositories.ExtratoRepository;
 import com.example.rinhabackend.repositories.TransacoesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ExtratoService {
 
     @Autowired
     private ClientesRepository clientesRepository;
-
-    @Autowired
-    private ExtratoRepository extratoRepository;
 
     @Autowired
     private TransacoesRepository transacoesRepository;

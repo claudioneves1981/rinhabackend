@@ -1,5 +1,6 @@
 package com.example.rinhabackend.models;
 
+import com.example.rinhabackend.models.enuns.Tipo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,18 +14,22 @@ public class Transacoes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @Column(name="transacoes_id")
+    private Long id;
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinTable(
             name="TB_CLIENTE_TRANSACOES",
-            joinColumns = @JoinColumn(name = "id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "id",referencedColumnName = "id")
+            joinColumns = @JoinColumn(name = "transacoes_id", referencedColumnName = "transacoes_id"),
+            inverseJoinColumns = @JoinColumn(name = "cliente_id",referencedColumnName = "cliente_id")
     )
     private Clientes cliente;
-    private Long id;
+
     private Integer valor;
-    private Character tipo;
+
+    @Enumerated(EnumType.STRING)
+    private Tipo tipo;
+
     private String descricao;
 
 }

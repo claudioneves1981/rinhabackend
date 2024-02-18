@@ -17,7 +17,7 @@ public class TransacoesController {
     @Autowired
     private TransacoesService transacoesService;
 
-    @PostMapping("clientes/{id}/transacoes")
+    @PostMapping("/clientes/{id}/transacoes")
     public SaldoLimiteDTO transacoes(@RequestBody Transacoes transacoes, @PathVariable("id") Long id) throws TransacaoMenorQueZeroException, DescricaoMaiorQueDezException, SaldoMenorQueLimiteException {
         return transacoesService.createTransacao(transacoes,id);
     }
