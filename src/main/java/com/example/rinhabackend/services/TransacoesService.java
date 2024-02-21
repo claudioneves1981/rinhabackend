@@ -45,12 +45,12 @@ public class TransacoesService {
         if(cliente.isPresent() && transacao.getTipo().equals("c")){
             saldoLimiteDTO.setSaldo(cliente.get().getSaldo() + transacao.getValor());
             cliente.get().setSaldo(cliente.get().getSaldo() + transacao.getValor());
-        }else if(cliente.isPresent() && transacao.getTipo().equals("d")){
-            saldoLimiteDTO.setSaldo(cliente.get().getSaldo() - transacao.getValor());
-            cliente.get().setSaldo(cliente.get().getSaldo() - transacao.getValor());
-            if(Math.abs(updateCliente.getSaldo() - transacao.getValor()) > cliente.get().getLimite()){
+        }else if(transacao.getTipo().equals("d")){
+            if(Math.abs(cliente.get().getSaldo() - transacao.getValor()) > cliente.get().getLimite()){
                 throw new SaldoMenorQueLimiteException();
             }
+            saldoLimiteDTO.setSaldo(cliente.get().getSaldo() - transacao.getValor());
+            cliente.get().setSaldo(cliente.get().getSaldo() - transacao.getValor());
         }
 
          transacoes.setId(transacao.getId());
