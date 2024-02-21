@@ -1,6 +1,5 @@
 package com.example.rinhabackend.models;
 
-import com.example.rinhabackend.models.enuns.Tipo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,8 +20,7 @@ public class UltimasTransacoes {
 
     private Integer valor;
 
-    @Enumerated(EnumType.STRING)
-    private Tipo tipo;
+    private String tipo;
 
     private LocalDate realizada_em;
 }

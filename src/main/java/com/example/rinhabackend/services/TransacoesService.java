@@ -42,11 +42,13 @@ public class TransacoesService {
             throw new DescricaoMaiorQueDezException();
         }
 
-        if(cliente.isPresent() && transacao.getTipo().equals('c')){
-            updateCliente.setSaldo_inicial(cliente.get().getSaldo_inicial() + transacao.getValor());
-        }else if(cliente.isPresent() && transacao.getTipo().equals('d')){
-            updateCliente.setSaldo_inicial(cliente.get().getSaldo_inicial() - transacao.getValor());
-            if((Math.abs(updateCliente.getSaldo_inicial() - transacao.getValor()) > cliente.get().getLimite())){
+        if(cliente.isPresent() && transacao.getTipo().equals("c")){
+            saldoLimiteDTO.setSaldo(cliente.get().getSaldo() + transacao.getValor());
+            cliente.get().setSaldo(cliente.get().getSaldo() + transacao.getValor());
+        }else if(cliente.isPresent() && transacao.getTipo().equals("d")){
+            saldoLimiteDTO.setSaldo(cliente.get().getSaldo() - transacao.getValor());
+            cliente.get().setSaldo(cliente.get().getSaldo() - transacao.getValor());
+            if(Math.abs(updateCliente.getSaldo() - transacao.getValor()) > cliente.get().getLimite()){
                 throw new SaldoMenorQueLimiteException();
             }
         }
@@ -55,10 +57,10 @@ public class TransacoesService {
          transacoes.setTipo(transacao.getTipo());
          transacoes.setValor(transacao.getValor());
          transacoes.setDescricao(transacao.getDescricao());
+         transacoes.setCliente(cliente.get());
+         saldoLimiteDTO.setLimite(cliente.get().getLimite());
+         clientesRepository.save(cliente.get());
          transacoesRepository.save(transacoes);
-
-         saldoLimiteDTO.setLimite(updateCliente.getLimite());
-         saldoLimiteDTO.setSaldo(updateCliente.getSaldo_inicial());
 
          return saldoLimiteDTO;
     }

@@ -20,7 +20,7 @@ public class Clientes {
 
     private Integer limite;
 
-    private Integer saldo_inicial;
+    private Integer saldo;
 
 
 }

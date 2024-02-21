@@ -1,6 +1,7 @@
 package com.example.rinhabackend.controllers;
 
 
+import com.example.rinhabackend.dtos.ExtratoDTO;
 import com.example.rinhabackend.models.Extrato;
 import com.example.rinhabackend.services.ExtratoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class ExtratoController {
     private ExtratoService extratoService;
 
     @GetMapping("/clientes/{id}/extrato")
-    public Extrato extrato(@PathVariable("id") Long id){
+    public ExtratoDTO extrato(@PathVariable("id") Long id){
         return extratoService.exibeExtrato(id);
     }
 

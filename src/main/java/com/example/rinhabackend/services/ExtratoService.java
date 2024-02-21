@@ -1,8 +1,13 @@
 package com.example.rinhabackend.services;
 
+import com.example.rinhabackend.dtos.ExtratoDTO;
+import com.example.rinhabackend.dtos.SaldoDTO;
+import com.example.rinhabackend.dtos.UltimasTransacoesDTO;
+import com.example.rinhabackend.models.Extrato;
+import com.example.rinhabackend.models.Saldo;
+import com.example.rinhabackend.models.UltimasTransacoes;
 import com.example.rinhabackend.models.*;
 import com.example.rinhabackend.repositories.ClientesRepository;
-import com.example.rinhabackend.repositories.ExtratoRepository;
 import com.example.rinhabackend.repositories.TransacoesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,20 +27,19 @@ public class ExtratoService {
     private TransacoesRepository transacoesRepository;
 
 
-    public Extrato exibeExtrato(Long id){
+    public ExtratoDTO exibeExtrato(Long id){
 
         Optional<Clientes> clientes = clientesRepository.findById(id);
         List<Transacoes> transacoes = transacoesRepository.findByTransacoesOrderByDescLimitDez(id);
-        List<UltimasTransacoes> ultimasTransacoes = new ArrayList<>();
-        UltimasTransacoes ultimaTransacao = new UltimasTransacoes();
-        Extrato extrato = new Extrato();
-        Saldo saldo = new Saldo();
-        saldo.setTotal(clientes.get().getSaldo_inicial());
+        List<UltimasTransacoesDTO> ultimasTransacoes = new ArrayList<>();
+        UltimasTransacoesDTO ultimaTransacao = new UltimasTransacoesDTO();
+        ExtratoDTO extrato = new ExtratoDTO();
+        SaldoDTO saldo = new SaldoDTO();
+        saldo.setTotal(clientes.get().getSaldo());
         saldo.setData_extrato(LocalDate.now());
         saldo.setLimite(clientes.get().getLimite());
         for(Transacoes transacao : transacoes){
 
-            ultimaTransacao.setId(transacao.getId());
             ultimaTransacao.setTipo(transacao.getTipo());
             ultimaTransacao.setValor(transacao.getValor());
             ultimaTransacao.setRealizada_em(LocalDate.now());

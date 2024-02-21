@@ -9,7 +9,10 @@ spring:
     allow-circular-references: true
   datasource:
     url: jdbc:postgresql://db:5432/rinha
+    #url: jdbc:postgresql://localhost:5432/rinha
     driverClassName: org.postgresql.Driver
+    #username: postgres
+    #password: Neves123
     username: admin
     password: 123
     initialization-mode: always
